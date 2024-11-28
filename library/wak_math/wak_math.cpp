@@ -1,6 +1,5 @@
 #include "wak_math.h"
 
-#include <cmath>
 
 namespace wak_math {
     /**
@@ -11,7 +10,7 @@ namespace wak_math {
      * @return T
      */
     unsigned long long get_largest_prime_factor(const unsigned long long n) {
-        auto largest_prime_factor {n};
+        auto largest_prime_factor{n};
 
         /*
          * largest_prime_factor can be represented as factor * other_factor
@@ -37,4 +36,12 @@ namespace wak_math {
         return reverse;
     }
 
+    unsigned long long sum_of_squares(const unsigned long long n) {
+        return n * (n + 1) * (2 * n + 1) / 6;
+    }
+
+    unsigned long long square_of_sum(const unsigned long long n) {
+        const auto sum = n * (n + 1) / 2;
+        return sum * sum;
+    }
 }
