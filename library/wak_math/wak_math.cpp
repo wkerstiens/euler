@@ -1,7 +1,33 @@
 #include "wak_math.h"
-
+#include <vector>
 
 namespace wak_math {
+
+    unsigned long long get_nth_prime(const unsigned long long n) {
+        if (n == 1) return 2;
+        if (n == 2) return 3;
+
+        std::vector<unsigned long long> primes = {2, 3};
+        auto count = 2; // since 2 and 3 are already counted
+
+        for (auto i = 5ULL; count < n; i += 2) {
+            bool is_prime = true;
+            for (const auto& p : primes) {
+                if (p * p > i) break;
+                if (i % p == 0) {
+                    is_prime = false;
+                    break;
+                }
+            }
+            if (is_prime) {
+                primes.push_back(i);
+                ++count;
+            }
+        }
+
+        return primes[n - 1]; // n-1 because index in vector starts from 0
+    }
+
     /**
      * @brief Get the prime factors of a number.
      *
