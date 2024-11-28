@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../library/fibonacci/fibonacci.h"
 
+using namespace fibonacci;
 
 int main() {
     std::cout << "Even Fibonacci Numbers" << std::endl;
