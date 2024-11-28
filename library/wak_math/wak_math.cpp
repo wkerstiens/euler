@@ -27,4 +27,14 @@ namespace wak_math {
         return largest_prime_factor;
     }
 
+    unsigned long long reverse_number(const unsigned long long n) {
+        auto reverse = 0ULL;
+        auto number = n;
+        while (number > 0) {
+            reverse = reverse * 10 + number % 10;
+            number /= 10;
+        }
+        return reverse;
+    }
+
 }
