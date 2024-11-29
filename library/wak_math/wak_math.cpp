@@ -28,6 +28,26 @@ namespace wak_math {
         return primes[n - 1]; // n-1 because index in vector starts from 0
     }
 
+    unsigned long long sum_primes(const unsigned long long n) {
+        if (n < 2) return 0;
+
+        std::vector is_prime(n + 1, true);
+        is_prime[0] = is_prime[1] = false;
+
+        for (auto i = 2ULL; i * i <= n; ++i) {
+            if (is_prime[i])
+                for (auto j = i * i; j <= n; j += i)
+                    is_prime[j] = false;
+        }
+
+        auto sum = 0ULL;
+        for (auto i = 2ULL; i <= n; ++i) {
+            if (is_prime[i]) sum += i;
+        }
+
+        return sum;
+    }
+
     /**
      * @brief Get the prime factors of a number.
      *
