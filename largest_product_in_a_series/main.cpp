@@ -2,18 +2,31 @@
 
 // Find the greatest product of thirteen consecutive digits in the 1000-digit number.
 
-unsigned long long int largest_product_in_series(const char *series, int series_length, int consecutive_digits) {
-    auto max_product = 0ull;
-    for (int i = 0; i < series_length - consecutive_digits; i++) {
-        auto product = 1ull;
-        for (int j = 0; j < consecutive_digits; j++) {
-            const auto multiply_by = series[i + j] - '0';
-            if (multiply_by == 0) break;
-            product *= multiply_by;
+unsigned long long largest_product_in_series(const char *series, const size_t series_length, const int consecutive_digits) {
+    unsigned long long max_product = 0;
+    unsigned long long product = 1;
+    int zero_count = 0;
+
+    // Calculate the product of the first `consecutive_digits` digits
+    for (int i = 0; i < series_length; ++i) {
+        if (const auto digit = series[i] - '0'; digit == 0)
+            zero_count++;
+        else
+            product *= digit;
+
+        // Once we have a full window (or if we find a zero)
+        if (i >= consecutive_digits) {
+            if (const auto first_digit = series[i - consecutive_digits] - '0'; first_digit == 0)
+                zero_count--;
+            else
+                product /= first_digit;
         }
-        if (product > max_product)
-            max_product = product;
+
+        // If there are zeroes in the current window, the product should be reset.
+        if (zero_count == 0 && i >= consecutive_digits - 1)
+            max_product = std::max(max_product, product);
     }
+
     return max_product;
 }
 
